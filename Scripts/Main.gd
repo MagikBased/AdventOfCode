@@ -14,7 +14,6 @@ func day_1():
 func day_2():
 	read_lines_from_file(2)
 	cube_count()
-	#print("Function not found")
 func day_3():
 	read_lines_from_file(3)
 	print("Function not found")
@@ -93,7 +92,12 @@ func read_lines_from_file(day):
 	while not input.eof_reached():
 		lines.append(input.get_line())
 	input.close()
-
+	var non_empty_lines = []
+	for line in lines:
+		if not line.is_empty():
+			non_empty_lines.append(line)
+	lines = non_empty_lines
+	
 func sum_of_first_and_last_numbers(lineInput):
 	var total: int = 0
 	for line in lineInput:
@@ -138,9 +142,9 @@ func spelling_replacement(line: String) -> String:
 	return line
 
 func cube_count():
-	var red = 0
-	var green = 0
-	var blue = 0
+	var min_red = 0
+	var min_green = 0
+	var min_blue = 0
 	
 	var max_red = 12
 	var max_green = 13
@@ -150,13 +154,17 @@ func cube_count():
 	var green_in_line = []
 	var blue_in_line = []
 	
+	var max_red_in_line = []
+	var max_green_in_line = []
+	var max_blue_in_line = []
+	
 	var regex_red = RegEx.new()
 	var regex_green = RegEx.new()
 	var regex_blue = RegEx.new()
 	var game_sum = 0
-	var compile_red = regex_red.compile("(\\d+)\\s*red")
-	var compile_green = regex_green.compile("(\\d+)\\s*green")
-	var compile_blue = regex_blue.compile("(\\d+)\\s*blue")
+	regex_red.compile("(\\d+)\\s*red")
+	regex_green.compile("(\\d+)\\s*green")
+	regex_blue.compile("(\\d+)\\s*blue")
 
 	var line_number = 0
 	
@@ -165,11 +173,13 @@ func cube_count():
 		var start_position_red = 0
 		while true:
 			var result_red = regex_red.search(line, start_position_red)
-			#print(line)
 			if result_red:
+					#min_red = int(result_red.get_string(1))
+					#print(min_red)
+					#print(str(result_red.get_string(1)) + " , " + str(line_number))
+				#print(str(min_red) + " , " + str(line_number))
 				if int(result_red.get_string(1)) > max_red:
-					#red += int(result_red.get_string(1))
-					for i in range(red_in_line.size() - 1, -1, -1):  # Iterate backwards
+					for i in range(red_in_line.size() - 1, -1, -1): 
 						if red_in_line[i] == line_number:
 							red_in_line.remove_at(i)
 					break
@@ -180,15 +190,30 @@ func cube_count():
 			else:
 				break
 	line_number = 0
+				
+	for line in lines:
+		line_number += 1
+		var start_position_red = 0
+		while true:
+			var result_red = regex_red.search(line, start_position_red)
+			if result_red:
+				if int(result_red.get_string(1)) > min_red:
+					min_red = int(result_red.get_string(1))
+				start_position_red = result_red.get_end()
+			else:
+				max_red_in_line.append(min_red)
+				min_red = 0
+				break
+	line_number = 0
+	
 	for line in lines:
 		line_number += 1
 		var start_position_green = 0
 		while true:
 			var result_green = regex_green.search(line, start_position_green)
-			#print(line)
 			if result_green:
 				if int(result_green.get_string(1)) > max_green:
-					for i in range(green_in_line.size() - 1, -1, -1):  # Iterate backwards
+					for i in range(green_in_line.size() - 1, -1, -1): 
 						if green_in_line[i] == line_number:
 							green_in_line.remove_at(i)
 					break
@@ -198,18 +223,31 @@ func cube_count():
 				start_position_green = result_green.get_end()
 			else:
 				break
-				
 	line_number = 0
+	
+	for line in lines:
+		line_number += 1
+		var start_position_green = 0
+		while true:
+			var result_green = regex_green.search(line, start_position_green)
+			if result_green:
+				if int(result_green.get_string(1)) > min_green:
+					min_green = int(result_green.get_string(1))
+				start_position_green = result_green.get_end()
+			else:
+				max_green_in_line.append(min_green)
+				min_green = 0
+				break
+	line_number = 0
+	
 	for line in lines:
 		line_number += 1
 		var start_position_blue = 0
 		while true:
 			var result_blue = regex_blue.search(line, start_position_blue)
-			#print(line)
 			if result_blue:
 				if int(result_blue.get_string(1)) > max_blue:
-					#red += int(result_red.get_string(1))
-					for i in range(blue_in_line.size() - 1, -1, -1):  # Iterate backwards
+					for i in range(blue_in_line.size() - 1, -1, -1): 
 						if blue_in_line[i] == line_number:
 							blue_in_line.remove_at(i)
 					break
@@ -219,39 +257,29 @@ func cube_count():
 				start_position_blue = result_blue.get_end()
 			else:
 				break
-		#var start_position_green = 0
-		#while true:
-			#var result_green = regex_green.search(line, start_position_green)
-			#if result_green:
-				##green += int(result_green.get_string(1))
-				#start_position_green = result_green.get_end()
-			#else:
-				#break
-		#green_in_line.append(green)
-		#green = 0
-#
-		#var start_position_blue = 0
-		#while true:
-			#var result_blue = regex_blue.search(line, start_position_blue)
-			#if result_blue:
-				##blue += int(result_blue.get_string(1))
-				#start_position_blue = result_blue.get_end()
-			#else:
-				#break
-		#blue_in_line.append(blue)
-		#blue = 0
-#
-	#print("Red in line: ", red_in_line)
-	#print("Green in line: ", green_in_line)
-	#print("Blue in line: ", blue_in_line)
-	print(range(len(red_in_line)))
-	for count in range(len(red_in_line)):
-		if count in red_in_line and count in green_in_line and count in blue_in_line:
-			print(count)
-			game_sum += count
-	print(game_sum)
-	#for count in range(len(red_in_line) - 1):
-		#if (red_in_line[count] <= max_red and green_in_line[count] <= max_green and blue_in_line[count] <= max_blue) and (red_in_line[count] != 0 and green_in_line[count] != 0 and blue_in_line[count] != 0):
-			#game_sum += count + 1
-			#print(count + 1)
-	#print(game_sum)
+	line_number = 0
+	
+	for line in lines:
+		line_number += 1
+		var start_position_blue = 0
+		while true:
+			var result_blue = regex_blue.search(line, start_position_blue)
+			if result_blue:
+				if int(result_blue.get_string(1)) > min_blue:
+					min_blue = int(result_blue.get_string(1))
+				start_position_blue = result_blue.get_end()
+			else:
+				max_blue_in_line.append(min_blue)
+				min_blue = 0
+				break
+	line_number = 0
+	
+	for count in (len(red_in_line)):
+		if red_in_line[count] in blue_in_line and red_in_line[count] in green_in_line:
+			game_sum += red_in_line[count]
+	print("Part One: " + str(game_sum))
+	if max_red_in_line.size() == max_green_in_line.size() and max_red_in_line.size() == max_blue_in_line.size():
+		var power_sum = 0
+		for count in max_red_in_line.size():
+			power_sum += max_red_in_line[count] * max_green_in_line[count] * max_blue_in_line[count]
+		print("Part Two: " + str(power_sum))
