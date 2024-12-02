@@ -1,16 +1,28 @@
 extends Node2D
 
-
 var input_path = "res://Inputs/input_day_1.txt"
 var input = FileAccess.open(input_path,FileAccess.READ)
 var lines = []
+var current_year = 2024
+var day_functions = {}
 
-func _ready():
-	pass
+
+func load_day_functions(year):
+	var year_path = "res://Scripts/" + str(year) + "/"
+	for day in range(1,26):
+		var script_path = year_path + "Day" + str(day) + ".gd"
+		if FileAccess.file_exists(script_path):
+			day_functions[day] = load(script_path).new()
+
 func day_1():
 	read_lines_from_file(1)
-	sum_of_first_and_last_numbers(lines)
-	sum_of_first_and_last_numbers(find_first_and_last_numbers_with_spelling())
+	var script_path = "res://Scripts/%d/Day%d.gd" % [current_year, 1]
+	if FileAccess.file_exists(script_path):
+		var day_script = load(script_path).new()
+		day_script._ready()
+		
+	#print("Part One: " + str(sum_of_first_and_last_numbers(lines)))
+	#print("Part Two: " + str(sum_of_first_and_last_numbers(find_first_and_last_numbers_with_spelling())))
 func day_2():
 	read_lines_from_file(2)
 	cube_count()
@@ -84,11 +96,11 @@ func day_25():
 	read_lines_from_file(25)
 	print("Function not found")
 
-
 func read_lines_from_file(day):
-	input_path = "res://Inputs/input_day_" + str(day) + ".txt"
+	input_path = "res://Inputs/" + str(current_year) +"/input_day_" + str(day) + ".txt"
 	input = FileAccess.open(input_path,FileAccess.READ)
 	lines.clear()
+	#print(input_path)
 	while not input.eof_reached():
 		lines.append(input.get_line())
 	input.close()
@@ -110,14 +122,13 @@ func sum_of_first_and_last_numbers(lineInput):
 		var combinedNumber = str(firstNumber) + str(lastNumber)
 		combinedNumber = combinedNumber.to_int()
 		total += combinedNumber
-	print(total)
+	return total
 
 func find_first_and_last_numbers_with_spelling():
 	var newLines = []
 	for line in lines:
 		line = spelling_replacement(line)
 		newLines.append(line)
-	#print(newLines)
 	return newLines
 
 func spelling_replacement(line: String) -> String:
@@ -174,10 +185,6 @@ func cube_count():
 		while true:
 			var result_red = regex_red.search(line, start_position_red)
 			if result_red:
-					#min_red = int(result_red.get_string(1))
-					#print(min_red)
-					#print(str(result_red.get_string(1)) + " , " + str(line_number))
-				#print(str(min_red) + " , " + str(line_number))
 				if int(result_red.get_string(1)) > max_red:
 					for i in range(red_in_line.size() - 1, -1, -1): 
 						if red_in_line[i] == line_number:

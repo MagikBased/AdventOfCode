@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://chctnq6akbqb8"]
+[gd_scene load_steps=3 format=3 uid="uid://chctnq6akbqb8"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_jidyy"]
 [ext_resource type="PackedScene" uid="uid://bkutf6f7blnp1" path="res://Scenes/day_buttons.tscn" id="2_mjvo4"]
-[ext_resource type="Script" path="res://Scripts/Day1.gd" id="3_3vwra"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jidyy")
@@ -10,7 +9,6 @@ script = ExtResource("1_jidyy")
 [node name="DayButtons" parent="." instance=ExtResource("2_mjvo4")]
 
 [node name="Day1" type="Node" parent="."]
-script = ExtResource("3_3vwra")
 
 [node name="Day2" type="Node" parent="."]
 
