@@ -25,7 +25,10 @@ func day_1():
 	#print("Part Two: " + str(sum_of_first_and_last_numbers(find_first_and_last_numbers_with_spelling())))
 func day_2():
 	read_lines_from_file(2)
-	cube_count()
+	var script_path = "res://Scripts/%d/Day%d.gd" % [current_year, 2]
+	if FileAccess.file_exists(script_path):
+		var day_script = load(script_path).new()
+		day_script._ready()
 func day_3():
 	read_lines_from_file(3)
 	print("Function not found")
