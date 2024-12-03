@@ -10,8 +10,6 @@ var base_url:String = "https://adventofcode.com/2024/day/"
 var http_request: HTTPRequest
 
 func _ready() -> void:
-	print("Main ready: ", self.get_path())
-
 	load_day_functions(current_year)
 	session_cookie = get_session_cookie()
 	setup_http_request()
