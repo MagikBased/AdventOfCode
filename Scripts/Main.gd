@@ -1,13 +1,21 @@
 extends Node2D
 
-var input_path = "res://Inputs/input_day_1.txt"
+var input_path:String = "res://Inputs/input_day_1.txt"
 var input = FileAccess.open(input_path,FileAccess.READ)
-var lines = []
-var current_year = 2024
+var lines:Array = []
+var current_year:int = 2024
 var day_functions = {}
+var session_cookie:String = ""
+var base_url:String = "https://adventofcode.com/2024/day/"
+var http_request: HTTPRequest
 
 func _ready() -> void:
+	print("Main ready: ", self.get_path())
+
 	load_day_functions(current_year)
+	session_cookie = get_session_cookie()
+	setup_http_request()
+	#fetch_input_for_day(3)
 
 func load_day_functions(year):
 	var year_path = "res://Scripts/" + str(year) + "/"
@@ -16,82 +24,13 @@ func load_day_functions(year):
 		if FileAccess.file_exists(script_path):
 			day_functions[day] = load(script_path).new()
 
-func day_1():
-	execute_day(1)
-	#print("Part One: " + str(sum_of_first_and_last_numbers(lines)))
-	#print("Part Two: " + str(sum_of_first_and_last_numbers(find_first_and_last_numbers_with_spelling())))
-
-func day_2():
-	execute_day(2)
-
-func day_3():
-	execute_day(3)
-
-func day_4():
-	execute_day(4)
-
-func day_5():
-	execute_day(5)
-
-func day_6():
-	execute_day(6)
-
-func day_7():
-	execute_day(7)
-
-func day_8():
-	execute_day(8)
-
-func day_9():
-	execute_day(9)
-
-func day_10():
-	execute_day(10)
-
-func day_11():
-	execute_day(11)
-
-func day_12():
-	execute_day(12)
-
-func day_13():
-	execute_day(13)
-
-func day_14():
-	execute_day(14)
-
-func day_15():
-	execute_day(15)
-
-func day_16():
-	execute_day(16)
-
-func day_17():
-	execute_day(17)
-
-func day_18():
-	execute_day(18)
-
-func day_19():
-	execute_day(19)
-
-func day_20():
-	execute_day(20)
-
-func day_21():
-	execute_day(21)
-
-func day_22():
-	execute_day(22)
-
-func day_23():
-	execute_day(23)
-
-func day_24():
-	execute_day(24)
-
-func day_25():
-	execute_day(25)
+func execute_day(day: int):
+	read_lines_from_file(day)
+	if day_functions.has(day):
+		var day_script = day_functions[day]
+		day_script._ready()
+	else:
+		print("Script for Day ", day, " not found.")
 
 func read_lines_from_file(day):
 	input_path = "res://Inputs/" + str(current_year) +"/input_day_" + str(day) + ".txt"
@@ -106,13 +45,38 @@ func read_lines_from_file(day):
 			non_empty_lines.append(line)
 	lines = non_empty_lines
 
-func execute_day(day: int):
-	read_lines_from_file(day)
-	if day_functions.has(day):
-		var day_script = day_functions[day]
-		day_script._ready()
+func get_session_cookie() -> String:
+	var get_cookie = OS.get_environment("AOC_SESSION_COOKIE")
+	if get_cookie == "":
+		print("Session cookie enviroment variable not found.")
+		return ""
+	return get_cookie
+
+func setup_http_request() -> void:
+	http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(Callable(self, "_on_http_request_completed"))
+
+func fetch_input_for_day(day: int):
+	var url = base_url + str(day) + "/input"
+	print("Fetching input from: ", url)
+	var headers = ["Cookie: session=" + session_cookie]
+	http_request.request(url,headers)
+
+func _on_http_request_completed(_result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	if response_code == 200:
+		input = body.get_string_from_utf8()
+		print("Input for day fetched successfully:")
+		#process_input(input)
 	else:
-		print("Script for Day ", day, " not found.")
+		print("Failed to fetch input. Response code: ", response_code)
+
+func process_input(get_input: String):
+	var file_path = "user://input_day.txt"
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	file.store_string(get_input)
+	file.close()
+	print("Input saved to: ", file_path)
 
 func sum_of_first_and_last_numbers(lineInput):
 	var total: int = 0

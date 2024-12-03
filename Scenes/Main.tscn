@@ -1,59 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://chctnq6akbqb8"]
+[gd_scene load_steps=2 format=3 uid="uid://chctnq6akbqb8"]
 
-[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_jidyy"]
 [ext_resource type="PackedScene" uid="uid://bkutf6f7blnp1" path="res://Scenes/day_buttons.tscn" id="2_mjvo4"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_jidyy")
 
 [node name="DayButtons" parent="." instance=ExtResource("2_mjvo4")]
 
-[node name="Day1" type="Node" parent="."]
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
 
-[node name="Day2" type="Node" parent="."]
-
-[node name="Day3" type="Node" parent="."]
-
-[node name="Day4" type="Node" parent="."]
-
-[node name="Day5" type="Node" parent="."]
-
-[node name="Day6" type="Node" parent="."]
-
-[node name="Day7" type="Node" parent="."]
-
-[node name="Day8" type="Node" parent="."]
-
-[node name="Day9" type="Node" parent="."]
-
-[node name="Day10" type="Node" parent="."]
-
-[node name="Day11" type="Node" parent="."]
-
-[node name="Day12" type="Node" parent="."]
-
-[node name="Day13" type="Node" parent="."]
-
-[node name="Day14" type="Node" parent="."]
-
-[node name="Day15" type="Node" parent="."]
-
-[node name="Day16" type="Node" parent="."]
-
-[node name="Day17" type="Node" parent="."]
-
-[node name="Day18" type="Node" parent="."]
-
-[node name="Day19" type="Node" parent="."]
-
-[node name="Day20" type="Node" parent="."]
-
-[node name="Day21" type="Node" parent="."]
-
-[node name="Day22" type="Node" parent="."]
-
-[node name="Day23" type="Node" parent="."]
-
-[node name="Day24" type="Node" parent="."]
-
-[node name="Day25" type="Node" parent="."]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

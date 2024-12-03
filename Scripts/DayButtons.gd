@@ -27,8 +27,9 @@ func _ready():
 func _on_Button_pressed(day_number):
 	var results_ui = results_ui_scene.instantiate()
 	get_parent().add_child(results_ui)
-	var function_name = "day_" + str(day_number)
-	if Main.has_method(function_name):
-		Main.call(function_name)
-	else:
-		print("Function not found")
+	Main.call("execute_day", day_number)
+	#var function_name = "day_" + str(day_number)
+	#if Main.has_method(function_name):
+		#Main.call(function_name)
+	#else:
+		#print("Function not found")
