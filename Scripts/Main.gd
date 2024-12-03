@@ -31,7 +31,10 @@ func day_2():
 		day_script._ready()
 func day_3():
 	read_lines_from_file(3)
-	print("Function not found")
+	var script_path = "res://Scripts/%d/Day%d.gd" % [current_year, 3]
+	if FileAccess.file_exists(script_path):
+		var day_script = load(script_path).new()
+		day_script._ready()
 func day_4():
 	read_lines_from_file(4)
 	print("Function not found")
