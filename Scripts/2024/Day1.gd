@@ -15,6 +15,6 @@ func _ready():
 	for n in left_list.size():
 		difference_sum += abs(left_list[n] - right_list[n])
 		similarity_score += left_list[n] * right_list.count(left_list[n])
-	print(difference_sum)
-	print(similarity_score)
+	print("Part One: ",difference_sum)
+	print("Part Two: ",similarity_score)
 	
