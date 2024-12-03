@@ -6,6 +6,8 @@ var lines = []
 var current_year = 2024
 var day_functions = {}
 
+func _ready() -> void:
+	load_day_functions(current_year)
 
 func load_day_functions(year):
 	var year_path = "res://Scripts/" + str(year) + "/"
@@ -15,98 +17,86 @@ func load_day_functions(year):
 			day_functions[day] = load(script_path).new()
 
 func day_1():
-	read_lines_from_file(1)
-	var script_path = "res://Scripts/%d/Day%d.gd" % [current_year, 1]
-	if FileAccess.file_exists(script_path):
-		var day_script = load(script_path).new()
-		day_script._ready()
-		
+	execute_day(1)
 	#print("Part One: " + str(sum_of_first_and_last_numbers(lines)))
 	#print("Part Two: " + str(sum_of_first_and_last_numbers(find_first_and_last_numbers_with_spelling())))
+
 func day_2():
-	read_lines_from_file(2)
-	var script_path = "res://Scripts/%d/Day%d.gd" % [current_year, 2]
-	if FileAccess.file_exists(script_path):
-		var day_script = load(script_path).new()
-		day_script._ready()
+	execute_day(2)
+
 func day_3():
-	read_lines_from_file(3)
-	var script_path = "res://Scripts/%d/Day%d.gd" % [current_year, 3]
-	if FileAccess.file_exists(script_path):
-		var day_script = load(script_path).new()
-		day_script._ready()
+	execute_day(3)
+
 func day_4():
-	read_lines_from_file(4)
-	print("Function not found")
+	execute_day(4)
+
 func day_5():
-	read_lines_from_file(5)
-	print("Function not found")
+	execute_day(5)
+
 func day_6():
-	read_lines_from_file(6)
-	print("Function not found")
+	execute_day(6)
+
 func day_7():
-	read_lines_from_file(7)
-	print("Function not found")
+	execute_day(7)
+
 func day_8():
-	read_lines_from_file(8)
-	print("Function not found")
+	execute_day(8)
+
 func day_9():
-	read_lines_from_file(9)
-	print("Function not found")
+	execute_day(9)
+
 func day_10():
-	read_lines_from_file(10)
-	print("Function not found")
+	execute_day(10)
+
 func day_11():
-	read_lines_from_file(1)
-	print("Function not found")
+	execute_day(11)
+
 func day_12():
-	read_lines_from_file(12)
-	print("Function not found")
+	execute_day(12)
+
 func day_13():
-	read_lines_from_file(13)
-	print("Function not found")
+	execute_day(13)
+
 func day_14():
-	read_lines_from_file(14)
-	print("Function not found")
+	execute_day(14)
+
 func day_15():
-	read_lines_from_file(15)
-	print("Function not found")
+	execute_day(15)
+
 func day_16():
-	read_lines_from_file(16)
-	print("Function not found")
+	execute_day(16)
+
 func day_17():
-	read_lines_from_file(17)
-	print("Function not found")
+	execute_day(17)
+
 func day_18():
-	read_lines_from_file(18)
-	print("Function not found")
+	execute_day(18)
+
 func day_19():
-	read_lines_from_file(19)
-	print("Function not found")
+	execute_day(19)
+
 func day_20():
-	read_lines_from_file(20)
-	print("Function not found")
+	execute_day(20)
+
 func day_21():
-	read_lines_from_file(21)
-	print("Function not found")
+	execute_day(21)
+
 func day_22():
-	read_lines_from_file(22)
-	print("Function not found")
+	execute_day(22)
+
 func day_23():
-	read_lines_from_file(23)
-	print("Function not found")
+	execute_day(23)
+
 func day_24():
-	read_lines_from_file(24)
-	print("Function not found")
+	execute_day(24)
+
 func day_25():
-	read_lines_from_file(25)
-	print("Function not found")
+	execute_day(25)
 
 func read_lines_from_file(day):
 	input_path = "res://Inputs/" + str(current_year) +"/input_day_" + str(day) + ".txt"
 	input = FileAccess.open(input_path,FileAccess.READ)
 	lines.clear()
-	#print(input_path)
 	while not input.eof_reached():
 		lines.append(input.get_line())
 	input.close()
@@ -115,7 +105,15 @@ func read_lines_from_file(day):
 		if not line.is_empty():
 			non_empty_lines.append(line)
 	lines = non_empty_lines
-	
+
+func execute_day(day: int):
+	read_lines_from_file(day)
+	if day_functions.has(day):
+		var day_script = day_functions[day]
+		day_script._ready()
+	else:
+		print("Script for Day ", day, " not found.")
+
 func sum_of_first_and_last_numbers(lineInput):
 	var total: int = 0
 	for line in lineInput:
