@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnn0rlqanbdcm"]
+
+[ext_resource type="Script" path="res://Scripts/results_ui.gd" id="1_5ouui"]
+
+[node name="ResultsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ouui")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SilverHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SilverLabel" type="Label" parent="VBoxContainer/SilverHBoxContainer"]
+layout_mode = 2
+
+[node name="SilverTextfield" type="LineEdit" parent="VBoxContainer/SilverHBoxContainer"]
+layout_mode = 2
+
+[node name="SilverCopyToClipboardButton" type="Button" parent="VBoxContainer/SilverHBoxContainer"]
+layout_mode = 2
+
+[node name="GoldHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/GoldHBoxContainer"]
+layout_mode = 2
+
+[node name="GoldTextfield" type="LineEdit" parent="VBoxContainer/GoldHBoxContainer"]
+layout_mode = 2
+
+[node name="GoldCopyToClipboardButton" type="Button" parent="VBoxContainer/GoldHBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/SilverHBoxContainer/SilverCopyToClipboardButton" to="." method="_on_silver_copy_to_clipboard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GoldHBoxContainer/GoldCopyToClipboardButton" to="." method="_on_gold_copy_to_clipboard_button_pressed"]

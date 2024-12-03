@@ -4,6 +4,8 @@ var red = Color(1,0,0)
 var green = Color(0,1,0)
 
 var current_year = 2024
+var results_ui_scene = preload("res://Scenes/results_ui.tscn")
+
 
 func _ready():
 	var grid = $GridContainer
@@ -23,7 +25,8 @@ func _ready():
 		grid.add_child(button)
 
 func _on_Button_pressed(day_number):
-	#var script_path = "res://Scripts/%d/Day%d.gd" % [current_year, day_number]
+	var results_ui = results_ui_scene.instantiate()
+	get_parent().add_child(results_ui)
 	var function_name = "day_" + str(day_number)
 	if Main.has_method(function_name):
 		Main.call(function_name)
