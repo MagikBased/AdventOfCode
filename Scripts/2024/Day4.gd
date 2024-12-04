@@ -39,7 +39,6 @@ func _ready() -> void:
 	print("Part One: ", silver)
 	print("Part Two: ", gold)
 
-
 func search_grid(grid: Array, _search_word: String, row: int, col: int, direction: Vector2) -> bool:
 	var word_length = word.length()
 	for i in range(word_length):

@@ -3,7 +3,7 @@ extends Node2D
 var input_path:String = "res://Inputs/input_day_1.txt"
 var input = FileAccess.open(input_path,FileAccess.READ)
 var lines:Array = []
-var current_year:int = 2024
+var current_year:int = 2015
 var day_functions = {}
 var session_cookie:String = ""
 var base_url:String = "https://adventofcode.com/2024/day/"
