@@ -28,7 +28,6 @@ func _ready():
 
 func _notification(what):
 	if what == NOTIFICATION_RESIZED:
-		print("here")
 		adjust_button_sizes()
 
 func adjust_button_sizes():
