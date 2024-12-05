@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5mx5a3w44m5l"]
+
+[ext_resource type="Shader" path="res://Shaders/snowfall.gdshader" id="1_2mo3x"]
+[ext_resource type="Texture2D" uid="uid://c3v5nwsu5ar1l" path="res://Images/single_pixel.png" id="2_df3pm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ellx"]
+shader = ExtResource("1_2mo3x")
+shader_parameter/layers = 50.0
+shader_parameter/depth = 0.5
+shader_parameter/density = 0.5
+shader_parameter/speed = 0.5
+shader_parameter/wind = 0.0
+
+[node name="Snowfall" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_4ellx")
+texture = ExtResource("2_df3pm")

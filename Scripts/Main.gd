@@ -3,7 +3,7 @@ extends Node2D
 var input_path:String = "res://Inputs/input_day_1.txt"
 var input = FileAccess.open(input_path,FileAccess.READ)
 var lines:Array = []
-var current_year:int = 2015
+var current_year:int = 2024
 var day_functions = {}
 var session_cookie:String = ""
 var base_url:String = "https://adventofcode.com/2024/day/"
@@ -26,22 +26,36 @@ func execute_day(day: int):
 	read_lines_from_file(day)
 	if day_functions.has(day):
 		var day_script = day_functions[day]
+		var start_time = Time.get_ticks_msec()
 		day_script._ready()
+		var end_time = Time.get_ticks_msec()
+		var execution_time = float(end_time - start_time)
+		print("Execution Time: ", execution_time, " ms")
 	else:
 		print("Script for Day ", day, " not found.")
 
 func read_lines_from_file(day):
-	input_path = "res://Inputs/" + str(current_year) +"/input_day_" + str(day) + ".txt"
-	input = FileAccess.open(input_path,FileAccess.READ)
+	input_path = "res://Inputs/" + str(current_year) + "/input_day_" + str(day) + ".txt"
+	if not FileAccess.file_exists(input_path):
+		print("Error: File does not exist at path: ", input_path)
+		lines.clear()
+		return
+	input = FileAccess.open(input_path, FileAccess.READ)
+	if not input:
+		print("Error: Unable to open file: ", input_path)
+		lines.clear()
+		return
 	lines.clear()
 	while not input.eof_reached():
 		lines.append(input.get_line())
 	input.close()
-	var non_empty_lines = []
-	for line in lines:
-		if not line.is_empty():
-			non_empty_lines.append(line)
-	lines = non_empty_lines
+	#var non_empty_lines = []
+	#for line in lines:
+		#if not line.is_empty():
+			#non_empty_lines.append(line)
+	#lines = non_empty_lines
+	if lines.size() == 0:
+		print("Warning: The file is empty: ", input_path)
 
 func get_session_cookie() -> String:
 	var get_cookie = OS.get_environment("AOC_SESSION_COOKIE")

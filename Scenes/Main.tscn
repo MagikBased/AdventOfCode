@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://chctnq6akbqb8"]
+[gd_scene load_steps=3 format=3 uid="uid://chctnq6akbqb8"]
 
 [ext_resource type="PackedScene" uid="uid://bkutf6f7blnp1" path="res://Scenes/day_buttons.tscn" id="2_mjvo4"]
+[ext_resource type="PackedScene" uid="uid://c5mx5a3w44m5l" path="res://Scenes/snowfall.tscn" id="2_uyrro"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Snowfall" parent="." instance=ExtResource("2_uyrro")]
+visible = false
+position = Vector2(576, 324)
+scale = Vector2(1152, 648)
 
 [node name="DayButtons" parent="." instance=ExtResource("2_mjvo4")]
 
