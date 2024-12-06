@@ -8,7 +8,6 @@
 [node name="Snowfall" parent="." instance=ExtResource("2_uyrro")]
 visible = false
 position = Vector2(576, 324)
-scale = Vector2(1152, 648)
 
 [node name="DayButtons" parent="." instance=ExtResource("2_mjvo4")]
 

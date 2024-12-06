@@ -12,6 +12,8 @@ shader_parameter/speed = 0.5
 shader_parameter/wind = 0.0
 
 [node name="Snowfall" type="Node2D"]
+position = Vector2(576, 0)
+scale = Vector2(1152, 648)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_4ellx")

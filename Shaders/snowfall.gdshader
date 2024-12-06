@@ -33,6 +33,5 @@ void fragment() {
 		color += vec3(smoothstep(edge, -edge, dist) * (flake_shift.x / (1.0 + 0.02 * i * depth)));
 	}
 	COLOR = texture(TEXTURE, UV) + vec4(vec3(color), 1.0);
-	
-}
 
+}
