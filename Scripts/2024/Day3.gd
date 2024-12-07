@@ -19,20 +19,17 @@ func _ready() -> void:
 	var multiply = 1 
 	for line in Main.lines:
 		var index = 0
-
 		while index < line.length():
 			var do_match = do_regex.search(line, index)
 			if do_match and do_match.get_start() == index:
 				multiply = 1
 				index = do_match.get_end()
 				continue
-
 			var dont_match = dont_regex.search(line, index)
 			if dont_match and dont_match.get_start() == index:
 				multiply = 0
 				index = dont_match.get_end()
 				continue
-
 			var mul_match = mul_regex.search(line, index)
 			if mul_match and mul_match.get_start() == index:
 				var x = mul_match.get_string(1).to_int()
