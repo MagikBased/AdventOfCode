@@ -47,7 +47,7 @@ func read_lines_from_file(day):
 		return
 	lines.clear()
 	while not input.eof_reached():
-		lines.append(input.get_line())
+		lines.append(input.get_line().strip_edges())
 	input.close()
 	#var non_empty_lines = []
 	#for line in lines:
@@ -56,6 +56,8 @@ func read_lines_from_file(day):
 	#lines = non_empty_lines
 	if lines.size() == 0:
 		print("Warning: The file is empty: ", input_path)
+	elif lines[-1] == "":
+		lines.pop_back()
 
 func get_session_cookie() -> String:
 	var get_cookie = OS.get_environment("AOC_SESSION_COOKIE")
