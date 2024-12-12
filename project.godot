@@ -22,3 +22,7 @@ Main="*res://Scripts/Main.gd"
 [debug]
 
 gdscript/warnings/integer_division=0
+
+[network]
+
+limits/debugger/max_chars_per_second=1000000
