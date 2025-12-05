@@ -27,17 +27,12 @@ func _ready() -> void:
 	
 	var removed_count := remove_paper_rolls()
 	silver = removed_count
-	#gold = silver
 	
 	while removed_count > 0:
-		#print_grid()
-		#print("\n")
 		removed_count = remove_paper_rolls()
-		#gold += removed_count
-		remove_paper_rolls()
+
 	print("Part One: ", silver)
 	print("Part Two: ", gold)
-
 
 func remove_paper_rolls() -> int:
 	var removed_count = 0
@@ -57,7 +52,6 @@ func remove_paper_rolls() -> int:
 				removed_count += 1
 				remove_locations.append(Vector2i(x,y))
 	gold += remove_locations.size()
-	#print(remove_locations)
 	for loc in remove_locations:
 		input_grid[loc.y][loc.x] = "."
 	return removed_count
