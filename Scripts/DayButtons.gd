@@ -1,11 +1,9 @@
 extends Control
 
-var red = Color(1,0,0,0.75)
-var green = Color(0,1,0,0.75)
+var red = Color(1,0,0,1)
+var green = Color(0,1,0,1)
 
-var current_year = 2024
 var results_ui_scene = preload("res://Scenes/results_ui.tscn")
-
 
 func _ready():
 	var grid = $GridContainer
@@ -22,7 +20,6 @@ func _ready():
 			button.modulate = red
 		else:
 			button.modulate = green
-		#print("Button modulate: ", button.modulate, ", Visible: ", button.visible)
 		var callable = Callable(self, "_on_Button_pressed").bind(button_number)
 		button.connect("pressed", callable)
 		grid.add_child(button)
